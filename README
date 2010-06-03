@@ -1,0 +1,8 @@
+A C library to support binary strings.
+
+To use:
+- Compile and install.
+- Include bstr.h in target source.
+- Link with the lib (-lbstr)
+
+See README.markdown for details on how to use libbstr in your source code.
