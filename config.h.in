@@ -23,11 +23,11 @@
    and to 0 otherwise. */
 #undef HAVE_REALLOC
 
+/* Define to 1 if you have the `register_printf_function' function. */
+#undef HAVE_REGISTER_PRINTF_FUNCTION
+
 /* Define to 1 if you have the `register_printf_specifier' function. */
 #undef HAVE_REGISTER_PRINTF_SPECIFIER
-
-/* Define to 1 if you have the `register_printf_type' function. */
-#undef HAVE_REGISTER_PRINTF_TYPE
 
 /* Define to 1 if you have the <stdint.h> header file. */
 #undef HAVE_STDINT_H

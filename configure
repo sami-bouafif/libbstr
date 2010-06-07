@@ -14597,7 +14597,7 @@ $as_echo "#define realloc rpl_realloc" >>confdefs.h
 fi
 
 
-for ac_func in memset strdup register_printf_type register_printf_specifier
+for ac_func in memset strdup
 do :
   as_ac_var=`$as_echo "ac_cv_func_$ac_func" | $as_tr_sh`
 ac_fn_c_check_func "$LINENO" "$ac_func" "$as_ac_var"
@@ -14610,6 +14610,36 @@ _ACEOF
 fi
 done
 
+
+for ac_func in register_printf_specifier
+do :
+  ac_fn_c_check_func "$LINENO" "register_printf_specifier" "ac_cv_func_register_printf_specifier"
+if test "x$ac_cv_func_register_printf_specifier" = x""yes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_REGISTER_PRINTF_SPECIFIER 1
+_ACEOF
+ { $as_echo "$as_me:${as_lineno-$LINENO}: INFO: using register_printf_specifier" >&5
+$as_echo "$as_me: INFO: using register_printf_specifier" >&6;}
+fi
+done
+
+if test "x$ac_cv_func_register_printf_specifier" = x""no; then
+        for ac_func in register_printf_function
+do :
+  ac_fn_c_check_func "$LINENO" "register_printf_function" "ac_cv_func_register_printf_function"
+if test "x$ac_cv_func_register_printf_function" = x""yes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_REGISTER_PRINTF_FUNCTION 1
+_ACEOF
+ { $as_echo "$as_me:${as_lineno-$LINENO}: INFO: using register_printf_function" >&5
+$as_echo "$as_me: INFO: using register_printf_function" >&6;}
+fi
+done
+
+        if test "x$ac_cv_func_register_printf_function" = x""no; then
+                as_fn_error "Neither of register_printf_specifier nor register_printf_function found!" "$LINENO" 5
+        fi
+fi
 
 ac_config_files="$ac_config_files Makefile src/Makefile"
 

@@ -1,12 +1,29 @@
-/*
- * bstr.h
+/* bstr.h
  *
- *  Created on: May 21, 2010
- *      Author: painkiller
+ * Copyright (C) 2010
+ *        Sami Bouafif <sami.bouafif@gmail.com>. All Rights Reserved.
+ *
+ * This file is part of libredis.
+ *
+ * libredis is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * libredis is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #ifndef BSTR_H_
 #define BSTR_H_
+
+#include <stdarg.h>
+#include <stdlib.h>
 
 /**
  * bstr_t:

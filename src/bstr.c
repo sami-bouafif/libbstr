@@ -1,8 +1,22 @@
-/*
- * bstr.c
+/* bstr.c
  *
- *  Created on: May 21, 2010
- *      Author: painkiller
+ * Copyright (C) 2010
+ *        Sami Bouafif <sami.bouafif@gmail.com>. All Rights Reserved.
+ *
+ * This file is part of libredis.
+ *
+ * libredis is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * libredis is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 
@@ -10,8 +24,10 @@
 #include <printf.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdarg.h>
 
 #include <bstr.h>
+#include <config.h>
 
 /**
  * SECTION:bstr
@@ -64,7 +80,11 @@ static int _bstr_print(FILE *stream,
 
   /* Get the bstr address */
   arg = *((const bstr_t **) (args[0]));
+#if HAVE_REGISTER_PRINTF_SPECIFIER
   bstr = *arg;
+#else
+  bstr = arg;
+#endif
   if (bstr == NULL)
   {
     fprintf(stream, "(null)");
@@ -87,13 +107,23 @@ static int _bstr_print(FILE *stream,
 }
 
 /* Populate argtype and argsize. */
+#ifdef HAVE_REGISTER_PRINTF_SPECIFIER
 static int _bstr_printArginfo (const struct printf_info *info,
                                 size_t n,
                                 int *argtypes,
                                 int *size)
+#else
+static int _bstr_printArginfo (const struct printf_info *info,
+                                size_t n,
+                                int *argtypes)
+#endif
 {
+#ifdef HAVE_REGISTER_PRINTF_SPECIFIER
   argtypes[0] = PA_BSTR;
   size[0] = sizeof(bstr_t);
+#else
+  argtypes[0] = PA_POINTER;
+#endif
   return 1;
 }
 
@@ -104,8 +134,12 @@ static int _bstr_printArginfo (const struct printf_info *info,
  */
 void __attribute__((constructor)) _bstr_init()
 {
+#ifdef HAVE_REGISTER_PRINTF_SPECIFIER
   PA_BSTR = register_printf_type(_bstr_va);
   register_printf_specifier('B', _bstr_print, _bstr_printArginfo);
+#else
+  register_printf_function('B', _bstr_print, _bstr_printArginfo);
+#endif
   bstr_initDone = 1;
 }
 

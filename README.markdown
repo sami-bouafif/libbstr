@@ -1,4 +1,3 @@
-% Binary String support
 libbstr : Binary String support library.
 ========================================
 Binary String support — Typedef and functions to support binary

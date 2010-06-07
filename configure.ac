@@ -46,7 +46,17 @@ AC_TYPE_SIZE_T
 # Checks for library functions.
 AC_FUNC_MALLOC
 AC_FUNC_REALLOC
-AC_CHECK_FUNCS([memset strdup register_printf_type register_printf_specifier])
+AC_CHECK_FUNCS([memset strdup])
+
+AC_CHECK_FUNCS(register_printf_specifier,
+              AC_MSG_NOTICE(INFO: using register_printf_specifier))
+if test "x$ac_cv_func_register_printf_specifier" = x""no; then
+        AC_CHECK_FUNCS(register_printf_function,
+                      AC_MSG_NOTICE(INFO: using register_printf_function))
+        if test "x$ac_cv_func_register_printf_function" = x""no; then
+                AC_MSG_ERROR(Neither of register_printf_specifier nor register_printf_function found!)
+        fi
+fi
 
 AC_CONFIG_FILES([Makefile src/Makefile])
 AC_OUTPUT 
